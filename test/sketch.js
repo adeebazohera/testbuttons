@@ -1,3 +1,4 @@
+var canvas;
 var boy,boyimg,button1,button2,button3,button4;
 function preload(){
   boyimg = loadAnimation("walk1boy.png","walk2boy.png","walk3boy.png","walk4boy.png","walk5boy.png","walk6boy.png");
@@ -5,9 +6,10 @@ function preload(){
 
 
 function setup() {
-  createCanvas(400, 400);
+  canvas = createCanvas(windowWidth, windowHeight);
   boy = createSprite(200,200);
   boy.addAnimation("walk",boyimg);
+  boy.scale = 3;
   col = color(25, 23, 200, 50);
   button1 = createButton('<');
   button1.position(19, 39);
@@ -47,4 +49,10 @@ function moveright(){
 }
 function movedown(){
   boy.y = boy.y + 10;
+}
+function touchHandler(e){
+  if(e.touches){
+    boy.x = e.touches[0].pageX-canvas.offsetLeft-boy.width/2;
+    boy.y = e.touches[0].pageY-canvas.offsetTop-boy.height/2;
+  }
 }
